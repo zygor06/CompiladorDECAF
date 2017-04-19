@@ -1,0 +1,2 @@
+java -jar dist/Compiler.jar -target scan '/home/aluno/compilador/src/scanner/char1'
+java -jar dist/Compiler.jar -target scan '$CAMINHO'
