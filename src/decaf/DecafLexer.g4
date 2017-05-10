@@ -16,8 +16,8 @@ tokens
 
 //Separators
 
-LCURLY : '{';
-RCURLY : '}';
+//LCURLY : '{';
+//RCURLY : '}';
 
 // DECAF Grammar LEXER
 
@@ -150,6 +150,25 @@ RBRACK          : ']'  ;
 SEMI            : ';'  ;
 COMMA           : ','  ;
 
+// Modifiers
+
+
+PUBLIC      : 'public';
+PROTECTED   : 'protected';
+PRIVATE     : 'private';
+STATIC      : 'static';
+ABSTRACT    : 'abstract';
+FINAL       : 'final';
+
+// Primitive Types
+
+
+INT         : 'int';
+FLOAT       : 'float';
+CHAR        : 'char';
+BOOLEAN     : 'boolean';
+LONG        : 'long';
+ARRAY       : 'array';
 
 // Identifiers
 
