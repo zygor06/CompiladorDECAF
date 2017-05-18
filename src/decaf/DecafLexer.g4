@@ -35,6 +35,7 @@ IF            : 'if';
 RETURN        : 'return';
 VOID          : 'void';
 WHILE         : 'while';
+THIS          : 'this';
 
 
 //Integer literals
@@ -117,12 +118,12 @@ NULL_LITERAL : 'null';
 
 // Operators
 
-ASSIGN          : '='  ;
 GT              : '>'  ;
 LT              : '<'  ;
 TILDE           : '~'  ;
 QUESTION        : '?'  ;
 COLON           : ':'  ;
+EXCLAMATION     : '!'  ;
 EQUAL           : '==' ;
 LE              : '<=' ;
 GE              : '>=' ;
@@ -137,7 +138,21 @@ MUL             : '*'  ;
 DIV             : '/'  ;
 BIT_AND         : '&'  ;
 BIT_OR          : '|'  ;
+BIR_XOR         : '^'  ;
 MOD             : '%'  ;
+
+
+// Assign
+
+ASSIGN          : '='  ;
+ADD_ASSIGN      : '+=' ;
+SUB_ASSIGN      : '-=' ;
+MUL_ASSIGN      : '*=' ;
+DIV_ASSIGN      : '/=' ;
+AND_ASSIGN      : '&=' ;
+OR_ASSIGN       : '|=' ;
+XOR_ASSIGN      : '^=' ;
+MOD_ASSIGN      : '%=' ;
 
 // Separators
 
@@ -149,6 +164,7 @@ LBRACK          : '['  ;
 RBRACK          : ']'  ;
 SEMI            : ';'  ;
 COMMA           : ','  ;
+DOT             : '.'  ;
 
 // Modifiers
 
@@ -162,13 +178,14 @@ FINAL       : 'final';
 
 // Primitive Types
 
-
-INT         : 'int';
-FLOAT       : 'float';
+ARRAY       : 'Array';
+BYTE        : 'byte';
 CHAR        : 'char';
-BOOLEAN     : 'boolean';
+DOUBLE      : 'double';
+FLOAT       : 'float';
+INT         : 'int';
 LONG        : 'long';
-ARRAY       : 'array';
+
 
 // Identifiers
 
