@@ -67,8 +67,8 @@ class Main{
         	else if (CLI.target == CLI.PARSE || CLI.target == CLI.DEFAULT)
         	{
         		DecafLexer lexer = new DecafLexer(new ANTLRInputStream(inputStream));
-				CommonTokenStream tokens = new CommonTokenStream(lexer);
-        		DecafParser parser = new DecafParser(tokens);
+                CommonTokenStream tokens = new CommonTokenStream(lexer);
+                DecafParser parser = new DecafParser(tokens);
                 parser.program();
         	}
         	

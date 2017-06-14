@@ -26,7 +26,7 @@ tokens
 BOOLEAN       : 'boolean';
 BREAK         : 'break';
 CALLOUT       : 'callout';
-CLASS         : 'class';
+CLASS         : 'class Program';
 CONTINUE      : 'continue';
 DO 			  : 'do';
 ELSE          : 'else';
@@ -36,7 +36,8 @@ RETURN        : 'return';
 VOID          : 'void';
 WHILE         : 'while';
 THIS          : 'this';
-
+PROGRAM  	  : 'program';
+MAIN          : 'main';
 
 //Integer literals
 
@@ -138,7 +139,6 @@ MUL             : '*'  ;
 DIV             : '/'  ;
 BIT_AND         : '&'  ;
 BIT_OR          : '|'  ;
-BIR_XOR         : '^'  ;
 MOD             : '%'  ;
 
 
@@ -180,7 +180,6 @@ FINAL       : 'final';
 
 ARRAY       : 'Array';
 BYTE        : 'byte';
-CHAR        : 'char';
 DOUBLE      : 'double';
 FLOAT       : 'float';
 INT         : 'int';

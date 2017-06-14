@@ -1,99 +1,69 @@
 parser grammar DecafParser;
-
+ 
 @header {
 package decaf;
 }
-
+ 
 options
 {
   language=Java;
   tokenVocab=DecafLexer;
 }
-
+ 
 // Class Definition :: Parser
-
-classDeclaration
-    :   CLASS IDENTIFIER classBody;
-
+ 
+program
+    :   CLASS classBody
+    ;
+ 
 classBody
-    :   LBRACE classBodyDeclaration* RBRACE;
+    :   LBRACE classBodyDeclaration* RBRACE
+;
 
 classBodyDeclaration
     :   SEMI
     |   block
     |   memberDeclaration
-    ;
+;
+
 
 memberDeclaration
     :   methodDeclaration
-    |   classDeclaration
-    ;
+    |   localVariableDeclarationStatement
+;
 
 methodDeclaration
-    :   FUNCTION IDENTIFIER formalParameters (methodBody|COMMA)
-    ;
+    :   (typeType|VOID) (IDENTIFIER | MAIN) formalParameters (methodBody|SEMI)
+;
 
-
-variableDeclarators
-    :   variableDeclarator (COMMA variableDeclarator)*
-    ;
-
-variableDeclarator
-    :   variableDeclaratorId (ASSIGN variableInitializer)?
-    ;
-
-variableDeclaratorId
-    :   IDENTIFIER (LBRACK RBRACK)*
-    ;
-
-variableInitializer
-    :   arrayInitializer
-    |   expression
-    ;
-
-arrayInitializer
-    :   LBRACE (variableInitializer (COMMA variableInitializer)* (COMMA)? )? RBRACE
-    ;
-
-typeType
-    :   classType (LBRACK RBRACK)*
-    |   primitiveType (LBRACK RBRACK)*
-    ;
-
-classType
-    :   IDENTIFIER
-    ;
-
-primitiveType
-    :   BOOLEAN
-    |   CHAR
-    |   BYTE
-    |   INT
-    |   LONG
-    |   FLOAT
-    |   DOUBLE
-    |   ARRAY
-    ;
-
-
+methodBody
+    :   block
+;
 
 formalParameters
     :   LPAREN formalParameterList? RPAREN
-    ;
+;
 
 formalParameterList
     :   formalParameter (COMMA formalParameter)*
     ;
 
 formalParameter
-    :   typeType variableDeclaratorId
+    :   typeType (IDENTIFIER)
+;
+
+typeType
+    :    primitiveType   
     ;
 
-methodBody
-    :   block
+primitiveType
+    :   INT
+    |   BOOLEAN
     ;
+ 
 
-// DECLARAÇÕES
+
+// BLOCK
 
 block
     :   LBRACE blockStatement* RBRACE
@@ -104,102 +74,95 @@ blockStatement
     |   statement
     ;
 
+
+
 localVariableDeclarationStatement
-    :    localVariableDeclaration COMMA
+    :    typeType variableId (COMMA variableId)* SEMI
+;
+
+variableId
+    :   IDENTIFIER (LBRACK INTEGER_LITERAL RBRACK)?
     ;
 
-localVariableDeclaration
-    :   typeType variableDeclarators
-    ;
+
 
 statement
     :   block
     |   IF parExpression statement (ELSE statement)?
-    |   FOR LPAREN forControl RPAREN statement
+    |   FOR forControl statement
     |   WHILE parExpression statement
-    |   DO statement WHILE parExpression SEMI
     |   RETURN expression? SEMI
     |   BREAK IDENTIFIER? SEMI
+    |   CALLOUT LPAREN (expressionList)* RPAREN SEMI
     |   CONTINUE IDENTIFIER? SEMI
     |   SEMI
     |   statementExpression SEMI
-    //|   Identifier COLON statement
-    ;
+;
 
 forControl
-    :   enhancedForControl
-    |   forInit? SEMI expression? SEMI forUpdate?
-    ;
+    :   forInit COMMA forUpdate
+;
 
 forInit
-    :   localVariableDeclaration
-    ;
-
-enhancedForControl
-    :   typeType variableDeclaratorId COLON expression
-    ;
-
-forUpdate
-    :   expressionList
-    ;
-
-// EXPRESSÕES
-
-
-parExpression
-    :   LPAREN expressionList RPAREN
-    ;
-
-expressionList
-    :   expression (COMMA expression)*
-    ;
-
-statementExpression
     :   expression
     ;
 
+forUpdate
+    :   expression
+;
+
+
+
+// EXPRESSIONS
+
+parExpression
+    :   LPAREN expression RPAREN
+    ;
+
 expression
-    :   expression DOT IDENTIFIER
-    |   expression DOT THIS
-    |   expression LBRACK expression RBRACK
-    |   expression LPAREN expressionList? LPAREN
-    |   PAREN typeType PAREN expression
+    :   primary
     |   expression (INC | DEC)
     |   (ADD|SUB|INC|DEC) expression
     |   (TILDE|EXCLAMATION) expression
     |   expression (MUL|DIV|MOD) expression
     |   expression (ADD|SUB) expression
-    |   expression (LT LT | GT GT GT | GT GT) expression
     |   expression (LE | GE | GT | LT) expression
-    |   expression (EQUAL | NOT_EQUAL) expression
-    |   expression BIT_AND
-    |   expression BIT_XORexpression expression
-    |   expression BIT_OR expression
-    |   expression AND expression
-    |   expression OR expression
-    |   expression QUESTION expression COLON expression
-    |   <assoc=right> expression
-        (   ASSIGN
-        |   ADD_ASSIGN
-        |   SUB_ASSIGN
-        |   MUL_ASSIGN
-        |   DIV_ASSIGN
-        |   AND_ASSIGN
-        |   OR_ASSIGN
-        |   XOR_ASSIGN
-        |   MOD_ASSIGN
-        )
-        expression
+    |   expression EQUAL expression
+    |   <assoc=right> expression ASSIGN expression
     ;
 
-creator
-    :   arrayCreator
+expressionList
+    :   expression (COMMA expression)*
+;
+
+statementExpression
+    :   expression
+;
+
+primary
+    :   LPAREN expression RPAREN
+    |   literal
+    |   IDENTIFIER
+    |   methodCall
+    |   arrayCall
+;
+
+methodCall
+    :   IDENTIFIER LPAREN (expressionList)? RPAREN
     ;
 
-arrayCreator
-    :   LBRACK
-        (   RBRACK (LBRACK RBRACK)* arrayInitializer
-        |   expression RBRACK (LBRACK expression RBRACK)* (LBRACK RBRACK)*
-        )
+arrayCall
+    :   IDENTIFIER LBRACK index RBRACK
     ;
 
+index
+    :   expression
+    ;
+
+literal
+    :   INTEGER_LITERAL
+    |   CHAR_LITERAL
+    |   STRING_LITERAL
+    |   BOOLEAN_LITERAL
+    |   NULL_LITERAL
+    ;
