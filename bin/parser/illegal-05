@@ -1,0 +1,8 @@
+class Program {
+	boolean a, b;
+  void main() {
+  }
+
+  boolean a, b;	// field decls must be first
+}
+

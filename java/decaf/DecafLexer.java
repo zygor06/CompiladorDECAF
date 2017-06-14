@@ -1,4 +1,4 @@
-// Generated from /home/aragorn/Downloads/CompiladorDECAF-master/src/decaf/DecafLexer.g4 by ANTLR 4.5.3
+// Generated from /home/aluno/compilador/src/decaf/DecafLexer.g4 by ANTLR 4.5.3
 
 package decaf;
 
